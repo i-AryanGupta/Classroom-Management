@@ -1,0 +1,13 @@
+#MYSQL Configuration
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/boot_cm?createDatabaseIfNotExist=true
+    username: root
+    password: tiger
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true

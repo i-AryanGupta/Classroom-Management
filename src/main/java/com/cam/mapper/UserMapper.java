@@ -1,0 +1,37 @@
+package com.cam.mapper;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Component;
+
+import com.cam.entity.User;
+import com.cam.requestdto.UserRequest;
+import com.cam.responsedto.UserResponse;
+
+import lombok.AllArgsConstructor;
+
+@Component
+@AllArgsConstructor
+public class UserMapper {
+
+	private final PasswordEncoder passwordEncoder;
+	
+	public User maptoUserRequest(UserRequest userRequest, User user)
+	{
+		user.setEmail(userRequest.getEmail());
+		user.setPassword(passwordEncoder.encode(userRequest.getPassword()));
+		user.setUsername(userRequest.getUsername());
+		return user;
+	}
+	
+	public UserResponse maptoUserResponse(User user)
+	{
+		return UserResponse.builder()
+				.userId(user.getUserId())
+				.username(user.getUsername())
+				.email(user.getEmail())
+				.isDeleted(user.isDeleted())
+				.userRole(user.getUserRole())
+				.isEmailVerified(user.isEmailVerified())
+				.build();
+	}
+}
